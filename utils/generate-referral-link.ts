@@ -16,5 +16,5 @@ type GenerateReferralLinkInput = {
  */
 export function generateReferralLink({ domain }: GenerateReferralLinkInput) {
   const code = uuid.v4().split('-')[0]
-  return domain + '/' + code
+  return domain + '/r/' + code
 }
