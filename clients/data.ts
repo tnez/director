@@ -10,3 +10,13 @@ export async function createLink(link: Link) {
     },
   })
 }
+
+export async function getLink(key: string) {
+  const result = await dynamo.get({
+    Key: {
+      k: key,
+    },
+  })
+
+  return result.Item as Link
+}
