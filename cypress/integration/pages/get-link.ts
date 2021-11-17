@@ -15,9 +15,28 @@ describe('when the user visits the page', () => {
     before(() => {
       email = faker.internet.email()
 
+      cy.intercept('POST', '/api/link', (request) => {
+        expect(request.body).to.have.ownProperty('domain')
+        expect(request.body).to.have.ownProperty('email')
+
+        return {
+          statusCode: 201,
+          body: {
+            ok: true,
+            data: {
+              link: 'http://localhost/abcd123fe',
+            },
+          },
+        }
+      }).as('postNewLink')
+
       cy.visit('/get-link')
       cy.get('input[id="email"]').type(email)
       cy.get('button[type="submit"]').click()
+    })
+
+    it('should call the api with expected arguments', () => {
+      cy.wait('@postNewLink')
     })
 
     it('should give the user a link', () => {

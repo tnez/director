@@ -7,15 +7,25 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react'
-import { generateReferralLink } from '../utils'
 
 export default function GetLinkPage() {
   const [referralLink, setReferralLink] = React.useState<string | undefined>(
     undefined,
   )
-  const handleSubmit = () => {
-    const newReferralLink = generateReferralLink({ domain: location.origin })
-    setReferralLink(newReferralLink)
+  const handleSubmit = async (email: string) => {
+    const response = await fetch('/api/link', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        domain: location.origin,
+        email,
+      }),
+    })
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    const { data } = await response.json()
+    setReferralLink(data.link)
   }
 
   return (
@@ -30,14 +40,28 @@ export default function GetLinkPage() {
 }
 
 type EmailFormProps = {
-  onSubmit: () => void
+  onSubmit: (email: string) => void
 }
 function EmailForm({ onSubmit }: EmailFormProps) {
+  const emailInputRef = React.useRef<HTMLInputElement>(null)
+  const handleSubmit = (evt: React.SyntheticEvent) => {
+    evt.preventDefault()
+    const email = emailInputRef.current?.value
+    if (email !== undefined) {
+      onSubmit(email)
+    }
+  }
+
   return (
-    <VStack as="form" onSubmit={onSubmit}>
+    <VStack as="form" onSubmit={handleSubmit}>
       <Text fontWeight="bold">Enter your email and receive your link:</Text>
       <InputGroup>
-        <Input id="email" type="email" placeholder="someone@example.com" />
+        <Input
+          id="email"
+          type="email"
+          placeholder="someone@example.com"
+          ref={emailInputRef}
+        />
         <InputRightAddon>
           <Box as="button" type="submit">
             Submit

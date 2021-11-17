@@ -1,5 +1,8 @@
+.env
 .next/
 node_modules/
 
 # Temporarily add slides to ignore because I want to wait until the end to add.
 /slides
+
+.vercel
