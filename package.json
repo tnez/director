@@ -31,7 +31,7 @@
     "@emotion/styled": "11.8.1",
     "aws-sdk": "2.1116.0",
     "dotenv": "16.0.0",
-    "framer-motion": "6.3.1",
+    "framer-motion": "6.3.3",
     "next": "12.0.4",
     "react": "18.1.0",
     "react-dom": "18.1.0",
