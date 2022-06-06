@@ -10,7 +10,7 @@
     "test": "jest"
   },
   "devDependencies": {
-    "@testing-library/cypress": "8.0.1",
+    "@testing-library/cypress": "8.0.3",
     "@types/faker": "5.5.9",
     "@types/jest": "27.5.2",
     "@types/react": "17.0.45",
