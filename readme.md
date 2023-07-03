@@ -1,3 +1,7 @@
+🛑 **This project has been archived**
+
+---
+
 <p align="center">
   <a href="https://director.tnez.dev">
     <img src="logo.png" width="200">
